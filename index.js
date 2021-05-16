@@ -76,9 +76,6 @@ app.delete('/api/persons/:id', (req, res) => {
     res.status(204).end()
 })
 
-const generateId = () => {
-    return Math.floor((Math.random() * 10000))
-}
 
 app.post('/api/persons', (req, res) => {
     const body = req.body
@@ -93,15 +90,15 @@ app.post('/api/persons', (req, res) => {
         })
     }
 
-    const person = {
+    const person =  new Person({
         name: body.name,
         number: body.number,
-        id: generateId()
-    }
+    })
 
-    persons = persons.concat(person)
-
-    res.json(person)
+    person.save().then(response => {
+        console.log(`added ${response.name} number ${response.number} to phonebook`)
+        res.json(response)
+    })
 })
 
 
