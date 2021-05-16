@@ -3,6 +3,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
 const Person = require('./models/person')
+const { response } = require('express')
 
 const app = express()
 
@@ -47,21 +48,25 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-    Person.find({}).then(persons => {
-        res.json(persons)
-    })
+    Person.find({})
+        .then(persons => {
+            res.json(persons)
+        })
+        .catch(err => {
+            console.log(err.message)
+            res.status(404).end()
+        })
 })
 
 app.get('/api/persons/:id', (req, res) => {
-    const id = Number(req.params.id)
-    const person = persons.find(p => p.id === id)
-
-    if (person) {
-        res.json(person)
-    } else {
-        res.status(404).end()
-    }
-
+    Person.findById(req.params.id)
+        .then(person => {
+            res.json(person)
+        })
+        .catch(err => {
+            console.log(err.message)
+            res.status(404).end()
+        })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
