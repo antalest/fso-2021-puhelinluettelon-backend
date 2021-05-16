@@ -9,7 +9,7 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:ui": "rm -rf build && cd ../full-stack-open-2021/osa2/puhelinluettelo/ && npm run build --prod && cp -r build ../../../fso-2021-puhelinluettelon-backend/",
     "deploy": "git push heroku main",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push -u origin main && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push -u origin main && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "repository": {
@@ -24,7 +24,9 @@
   "homepage": "https://github.com/antalest/fso-2021-puhelinluettelon-backend#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "mongoose": "^5.12.9",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
